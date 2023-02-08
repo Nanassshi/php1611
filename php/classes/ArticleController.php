@@ -21,6 +21,7 @@ class ArticleController{
                 </div>
             </div>";
         return $content;
+        /*return json_encode($row);*/
     }
 
     public static function deleteArticle($articleId){
