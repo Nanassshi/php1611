@@ -26,7 +26,7 @@
     else if($path[1] == "article"){
         $content = ArticleController::getArticle($path[2]);
     }else if($path[1] == "deleteArticle"){
-        $content = ArticleController::deleteArticle($path[2]);
+        ArticleController::deleteArticle($path[2]);
     }else if($path[1] == "getUserData"){
         UsersController::getUserData();
     }else{
