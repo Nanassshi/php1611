@@ -30,8 +30,15 @@ else if($path[1] == "article" and $method=="GET"){ // $path = ["", "article"] & 
     $content = file_get_contents('article.html');
 }else if($path[1] == "article" and $method=="POST"){ // $path = ["", "article"] & $method = "POST"
     exit(ArticleController::getArticle($path[2]));
+}else if($path[1] == "updateArticle" and $method=="GET"){
+    $content = file_get_contents('updateArticle.html');
+}else if($path[1] == "updateArticle" and $method=="POST"){
+    ArticleController::updateArticle($_POST['id'], $_POST['title'], $_POST['content'], $_POST['author']);
 }else if($path[1] == "deleteArticle"){ // $path = ["", "deleteArticle"]
-    exit(ArticleController::deleteArticle($path[2]));
+    ArticleController::deleteArticle($path[2]); exit;
+}else if($path[1] == "getUsers" and $method == "GET"){
+    UsersController::getUsers();
+    $content = file_get_contents('users.html');
 }else if($path[1] == "getUserData"){ // $path = ["","getUserData"]
     UsersController::getUserData();
 }

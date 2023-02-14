@@ -9,7 +9,7 @@ while (($row = $result->fetch_assoc()) != null){
 $content = '
     <div class="container-fluid bg-abstract py-3">
         <div class="container transparent-bg col-sm-4 col-lg-8 py-5 px-3">
-            <div class="py-3 px-3" style="color: #7d0805">'. $articles. '</div>
+            <div class="py-3 px-3 mx-5" style="color: #7d0805">'. $articles. '</div>
         </div>
     </div>
         ';
