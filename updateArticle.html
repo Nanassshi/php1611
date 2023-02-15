@@ -1,0 +1,40 @@
+<div class="container-fluid bg-abstract py-4">
+    <div class="col-sm-6 mx-auto py-5 my-3 transparent-bg">
+        <h1 class="text-center h-text">Редактирование статьи</h1>
+        <div class="col-sm-6 col-lg-8 mx-auto">
+            <form action="/updateArticle" method="post">
+                <input type="hidden" name="id" id="inputArticleId">
+                <div class="mb-3">
+                    <input type="text" class="form-control h-text form-red" name="title" placeholder="Заголовок" id="title">
+                </div>
+                <div class="mb-3">
+                    <textarea name="content" placeholder="Контент" class="form-control h-text form-red" id="content"></textarea>
+                </div>
+                <div class="mb-3">
+                    <input name="author" type="text" class="form-control h-text form-red" placeholder="Автор" id="author">
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn my-3" style="background: #7d0805; color: #322c34" value="Сохранить">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    // '/updateArticle/3'   '/article/'+articleId методом пост
+    let articleId = location.pathname.split('/')[2];
+    let title = document.getElementById('title');
+    let content = document.getElementById('content');
+    let author = document.getElementById('author');
+    let inputArticleId = document.getElementById('inputArticleId');
+    fetch('/article/'+articleId, {
+        method: "post"
+    }).then(function (response){return response.json()})
+        .then(function (result){
+            console.log(result);
+            title.value = result.title;
+            content.innerText = result.content;
+            author.value = result.author;
+            inputArticleId.value = result.id;
+        });
+</script>
