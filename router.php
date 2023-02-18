@@ -6,9 +6,9 @@ session_start();
 $requestURI = $_SERVER['REQUEST_URI']; // Получаем URI по которому запрошена страница
 $method = $_SERVER['REQUEST_METHOD']; // Получаем метод запроса
 $path = explode('/', $requestURI); // Разбиваем URI по "/"
-require_once('php/db.php');  // включение db.php в код
-require_once('php/classes/UsersController.php'); // включение UsersController в код
-require_once('php/classes/ArticleController.php'); // включение ArticleCon в код
+require_once('php/db.php'); 
+require_once('php/classes/UsersController.php');
+require_once('php/classes/ArticleController.php');
 if($path[1]=="reg" and $method=="GET"){
     $content = file_get_contents("reg.php");
 }else if($path[1]=="reg" and $method=="POST"){
@@ -42,8 +42,14 @@ else if($path[1] == "article" and $method=="GET"){
     }else{
         header('Location: /login');
     }
+
 }else if($path[1] == "deleteArticle"){
-    ArticleController::deleteArticle($path[2]); exit;
+    if($_SESSION['id']){
+        ArticleController::deleteArticle($path[2]); exit;
+    }else{
+        header('Location: /login');
+}
+
 }else if($path[1] == "getUsers" and $method=="GET"){
     exit(UsersController::getUsers());
 }else if($path[1] == "users"){
