@@ -10,7 +10,7 @@ class UsersController{
                 $_SESSION['name'] = $row['name'];
                 $_SESSION['lastname'] = $row['lastname'];
                 $_SESSION['email'] = $row['email'];
-                header("Location: /profile.php");
+                header("Location: /profile");
             }else{
                 header("Location: /login.php?m=error");
             }
@@ -43,5 +43,20 @@ class UsersController{
         $jsonUserData = json_encode($userData);
         // показываем на экране данные в формате json
         exit($jsonUserData);
+    }
+
+    public static function getUsers(){
+        global $mysqli;
+        $result = $mysqli->query("SELECT * FROM Users");
+        $users = [];
+        while (($row = $result->fetch_assoc()) != null) { // получаем всех пользователей в массиве
+            $users[] = $row;
+        }
+        return json_encode($users);
+    }
+
+    public static function logout(){
+        session_destroy();
+        header("Location: /");
     }
 }

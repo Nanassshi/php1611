@@ -17,4 +17,9 @@ class ArticleController{
         $mysqli->query("DELETE FROM articles WHERE id = $articleId");
         header("Location: /");
     }
+    public static function updateArticle($articleId, $title, $content, $author){
+        global $mysqli;
+        $mysqli->query("UPDATE articles SET title='$title',content='$content',author='$author' WHERE id=$articleId");
+        header("Location: /article/$articleId");
+    }
 }
