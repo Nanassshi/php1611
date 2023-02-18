@@ -17,20 +17,13 @@
             .dropdown-item:hover{
                 background: black;
                 border-radius: 15%;
-                color: #7d0805;
-            }
-
-            .none-hover{
-                color: #7d0805;
-            }
-
-            .none-hover:hover{
-                color: #7d0805;
+                color: rgb(253 245 230);
             }
 
             .under-hover{
                 position: relative;
                 text-decoration: none;
+                color: rgb(253 245 230);
             }
 
             .under-hover::before {
@@ -39,21 +32,20 @@
                 width: 100%;
                 height: 3px;
                 border-radius: 4px;
-                background-color: #7d0805;
+                background-color: rgb(253 245 230);
                 bottom: 0;
                 left: 0;
-                transform-origin: left 40%;
+                transform-origin: right 100%;
                 transform: scaleX(0);
                 transition: transform .5s ease-in-out;
             }
 
             .under-hover:hover::before {
-                transform-origin: right 60%;
                 transform: scaleX(1);
             }
 
             .bg-abstract{
-                background-image: url("https://img1.akspic.ru/attachments/crops/8/3/8/3/6/163838/163838-apelsin-abstraktnoe_iskusstvo-krasochnost-seryj_cvet-krasnyj_cvet-1920x1080.jpg");
+                background-color: white;
                 background-size: cover;
                 background-attachment: fixed;
             }
@@ -66,13 +58,13 @@
             }
 
             .h-text{
-                color: #7d0805;
+                color: rgb(253 245 230);
             }
 
             .form-red{
-                color: #7d0805;
-                background: #322c34;
-                border: #7d0805 2px solid;
+                color: rgb(253 245 230);
+                background: black;
+                border: rgb(253 245 230) 2px solid;
             }
 
             .animationLoader {
@@ -106,7 +98,7 @@
                 position: absolute;
                 display: inline-block;
                 top: 0;
-                background-color: #a10400;
+                background-color: rgb(253 245 230);
                 border-radius: 100%;
                 width: 45px;
                 height: 45px;
@@ -146,14 +138,14 @@
                 display: inline-block;
                 padding: 15px 15px;
                 border: 2px solid;
-                border-image: linear-gradient(180deg, #ff3000, #ed0200, #ff096c, #d50082);
+                border-image: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(104,100,94,1) 0%, rgba(253,245,230,1) 20%, rgba(253,245,230,1) 77%, rgba(113,109,103,1) 100%);
                 border-image-slice: 1;
                 font-family: 'Comfortaa', cursive;
                 font-size: small;
                 text-transform: uppercase;
                 overflow: hidden;
                 letter-spacing: 2px;
-                transition: .8s cubic-bezier(.165, .84, .44, 1);
+                transition: 0.8s cubic-bezier(.165, .84, .44, 1);
             }
             .sliding-button:before {
                 content: "";
@@ -164,11 +156,12 @@
                 width: 100%;
                 z-index: -1;
                 color: white;
-                background: linear-gradient(180deg, #ff3000, #ed0200, #ff096c, #d50082);
-                transition: .8s cubic-bezier(.165, .84, .44, 1);
+                background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(104,100,94,1) 0%, rgba(253,245,230,1) 20%, rgba(253,245,230,1) 77%, rgba(113,109,103,1) 100%);
+                transition: 0.8s cubic-bezier(.165, .84, .44, 1);
             }
             .sliding-button:hover {
-                background: rgba(146, 0, 5, .9);
+                transition: 1s;
+                background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(104,100,94,1) 0%, rgba(253,245,230,1) 20%, rgba(253,245,230,1) 77%, rgba(113,109,103,1) 100%);
             }
             .sliding-button:hover:before {
                 bottom: 0;
@@ -190,7 +183,7 @@
         <!-- Начало меню -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
             <div class="container-fluid">
-                <a class="navbar-brand h-text none-hover" href="/hello">
+                <a class="navbar-brand h-text" href="/hello">
                     <div class="py-1 under-hover">
                         <i class="fa-brands fa-neos fa-xl fa-flip" style="--fa-animation-duration: 5s;"></i>anashi
                     </div>
@@ -201,22 +194,26 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto my-auto mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link h-text" aria-current="page" href="/hello">Главная</a>
+                            <a class="nav-link h-text under-hover" aria-current="page" href="/hello">Главная</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle h-text" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle h-text under-hover" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Статья
                             </a>
                             <ul class="dropdown-menu" style="background: #202529">
                                 <li><a class="dropdown-item h-text" href="/">Статьи</a></li>
                                 <li><a class="dropdown-item h-text" href="/addArticle">Добавить статью</a></li>
                                 <li><hr class="dropdown-divider h-text"></li>
-                                <li><a class="dropdown-item h-text" href="/getUsers">Пользователи</a></li>
+                                <li><a class="dropdown-item h-text" href="/users">Пользователи</a></li>
                             </ul>
                         </li>
                     </ul>
-                    <a href="/reg" class="btn sliding-button me-3" style="padding: 10px 20px;">Регистрация</a>
-                    <a href="/login" class="btn sliding-button me-3" style="padding: 10px 20px;">Войти</a>
+                    <? if($_SESSION['id']): ?>
+                        <a href="/exit" class="btn sliding-button me-3" style="padding: 10px 20px;">Выход</a>
+                    <? else: ?>
+                        <a href="/reg" class="btn sliding-button me-3" style="padding: 10px 20px;">Регистрация</a>
+                        <a href="/login" class="btn sliding-button me-3" style="padding: 10px 20px;">Войти</a>
+                    <?endif;?>
                 </div>
             </div>
         </nav>
@@ -237,7 +234,7 @@
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <footer class="bg-dark container-fluid">
-            <div class="container py-5 text-center" style="color: #a10400">
+            <div class="container py-5 text-center" style="color: rgb(253 245 230)">
                 &copy; 1611 PHP 2023
             </div>
         </footer>

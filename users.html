@@ -1,7 +1,7 @@
 <div class="container-fluid bg-abstract py-4">
     <div class="col-sm-6 mx-auto py-5 my-3 transparent-bg px-3">
         <h1 class="text-center my-3 h-text">Пользователи</h1>
-        <div class="col-sm-5 text-center mx-auto" id="userList">
+        <div class="col-sm-5 text-center mx-auto my-4 h-text" id="userList">
 
         </div>
     </div>
@@ -10,10 +10,10 @@
     let userList = document.getElementById('userList');
     fetch('/getUsers')
         .then(function (response){return response.json()})
-            .then(function (result){
-                console.log(result);
-                for (let i = 0; i < result.length; i++){
-                    userList.innerHTML += "<p class='h-text text-center pt-3'>Имя: "+result[i].name+" Фамилия: "+result[i].lastname+"</p>";
-                }
-            });
+        .then(function (result){
+            console.log(result);
+            for (let i = 0; i < result.length; i++) {
+                userList.innerHTML = userList.innerHTML +"<p>Имя: "+result[i].name+"<br> Фамилия: "+result[i].lastname+"</p><hr>";
+            }
+        })
 </script>

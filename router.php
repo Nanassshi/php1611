@@ -9,40 +9,51 @@ $path = explode('/', $requestURI); // Разбиваем URI по "/"
 require_once('php/db.php');  // включение db.php в код
 require_once('php/classes/UsersController.php'); // включение UsersController в код
 require_once('php/classes/ArticleController.php'); // включение ArticleCon в код
-if($path[1]=="reg" and $method=="GET"){ // $method = "GET" & $path = ["", "reg"]
+if($path[1]=="reg" and $method=="GET"){
     $content = file_get_contents("reg.php");
-}else if($path[1]=="reg" and $method=="POST"){ // $path = ["", "reg"] & $method = "POST"
+}else if($path[1]=="reg" and $method=="POST"){
     UsersController::reg($_POST['name'], $_POST['lastname'], $_POST['email'], $_POST['pass']);
-}else if ($path[1]=="login" and $method=="GET"){ // $path = ["", "login"] & $method = "GET"
+}else if ($path[1]=="login" and $method=="GET"){
     $content = file_get_contents('login.php');
-}else if($path[1]=="login" and $method=="POST"){ // $path = ["", "login"] & $method = "POST"
+}else if($path[1]=="login" and $method=="POST"){
     UsersController::login($_POST['email'], $_POST['pass']);
-}else if($path[1]=="hello") { // $path = ["", "hello"]
+}else if($path[1]=="hello") {
     $content = file_get_contents('hello.php');
-}else if($path[1]=="profile"){ // $path = ["", "profile"]
-    $content = file_get_contents('profile.php');
-}else if($path[1] == "addArticle" and $method=="GET"){ // $path = ["", "addArticle"] & $method = "GET"
+}else if($path[1]=="profile"){
+    if($_SESSION['id']){
+        $content = file_get_contents('profile.php');
+    }else{
+        header('Location: /login');
+    }
+}else if($path[1] == "addArticle" and $method=="GET"){ //
     $content = file_get_contents('addArticle.php');
-}else if($path[1] == "addArticle" and $method=="POST"){ // $path = ["", "addArticle"] & $method = "POST"
+}else if($path[1] == "addArticle" and $method=="POST"){
     ArticleController::addArticle($_POST['title'], $_POST['content'], $_POST['author']);
-}else if($path[1] == ""){} // $path = ["", ""]
-else if($path[1] == "article" and $method=="GET"){ // $path = ["", "article"] & $method = "GET"
+}else if($path[1] == ""){}
+else if($path[1] == "article" and $method=="GET"){
     $content = file_get_contents('article.html');
-}else if($path[1] == "article" and $method=="POST"){ // $path = ["", "article"] & $method = "POST"
+}else if($path[1] == "article" and $method=="POST"){
     exit(ArticleController::getArticle($path[2]));
 }else if($path[1] == "updateArticle" and $method=="GET"){
     $content = file_get_contents('updateArticle.html');
 }else if($path[1] == "updateArticle" and $method=="POST"){
-    ArticleController::updateArticle($_POST['id'], $_POST['title'], $_POST['content'], $_POST['author']);
-}else if($path[1] == "deleteArticle"){ // $path = ["", "deleteArticle"]
+    if($_SESSION['id']){
+        ArticleController::updateArticle($_POST['id'], $_POST['title'], $_POST['content'], $_POST['author']);
+    }else{
+        header('Location: /login');
+    }
+}else if($path[1] == "deleteArticle"){
     ArticleController::deleteArticle($path[2]); exit;
-}else if($path[1] == "getUsers" and $method == "GET"){
-    UsersController::getUsers();
+}else if($path[1] == "getUsers" and $method=="GET"){
+    exit(UsersController::getUsers());
+}else if($path[1] == "users"){
     $content = file_get_contents('users.html');
-}else if($path[1] == "getUserData"){ // $path = ["","getUserData"]
+}else if($path[1] == "exit"){
+    UsersController::logout();
+}else if($path[1] == "getUserData"){
     UsersController::getUserData();
 }
 else{
     echo "Страница не найдена 404";
 }
-require_once('template.php'); // включение template в код
+require_once('template.php');

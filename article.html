@@ -1,20 +1,23 @@
 <div class="container-fluid bg-abstract py-4">
-    <div class="col-sm-6 mx-auto py-5 transparent-bg px-3">
-        <h1 class="h-text" id="title"></span></h1>
+    <div class="col-sm-6 mx-auto py-5 my-3 transparent-bg px-5">
+        <h1 class="h-text" id="title"></h1>
         <div class="h-text" id="content"></div>
-        <div class="h-text pt-3" id="author"></span></div>
+        <div class="h-text pt-3" id="author"></div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="" id="deleteBtn" class="btn my-3" style="background: #7d0805; color: #322c34">Удалить</a>
+            <a href="" id="updateBtn" class="btn my-3" style="background: rgb(253 245 230); color: black">Редактировать</a>
+            <a href="" id="deleteBtn" class="btn my-3" style="background: rgb(253 245 230); color: black">Удалить</a>
         </div>
     </div>
 </div>
 
 <script>
-    let articleId = location.pathname.split('/')[2];
+    let articleId = location.pathname.split('/')[2]; // получаем id статьи из url(pathname)
+    // переменные для id в html
     let title = document.getElementById("title");
     let content = document.getElementById("content");
     let author = document.getElementById("author");
-    let deleteDtn = document.getElementById("deleteBtn");
+    let deleteBtn = document.getElementById("deleteBtn");
+    let updateBtn = document.getElementById("updateBtn");
     let formData = new FormData();
     // Мы передаем articleId со значением articleId = location.pathname.split('/')[2];
     formData.append("articleId", articleId);
@@ -27,6 +30,7 @@
             title.innerText = result.title;
             content.innerText = result.content;
             author.innerText = result.author;
-            deleteDtn.href = "/deleteArticle/"+articleId;
+            deleteBtn.href = "/deleteArticle/"+articleId;
+            updateBtn.href = "/updateArticle/"+articleId;
         });
 </script>
